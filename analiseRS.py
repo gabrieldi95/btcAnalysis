@@ -1,3 +1,5 @@
+#!/home/gabriel/anaconda3/bin/python3
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -21,26 +23,27 @@ class AnaliseRS:
         nroPontos = self.mediaDePontos()
         listaRS = [] #irá conter p rs de cada divisão
         mediaValor = 0
-        for i in range(0,6):
-            rs = 0
-            for j in range(0, int(math.pow(2,i)) ):
+        for i in range(0,6): #This for runs through all possibel divisions of the values (divide in 1, in 2, in 4, in 8...)
+            for j in range(0, int(math.pow(2,i)) ): #This one iterates over all n divisions
+                rs = 0
                 mediaValor = 0
+                desvioAux = 0
+                deviationSquare = 0
                 desvios = []
-                for k in range(0,nroPontos[i]):
-                    l = k + j*nroPontos[i]
-                    mediaValor += self.btc[l]
+                for k in range(0,nroPontos[i]): # Iterates over all values inside a division, and it calculates de sum of all btc values
+                    l = k + j*nroPontos[i] #this 'l' is used because on each division I have to continue from where i finished the las one.
+                    mediaValor += self.btc[l] #1. Calculate the mean
 
-                mediaValor = mediaValor/nroPontos[i]
-                for k in range(0,nroPontos[i]):
-                    desvioAux = 0
+                mediaValor = mediaValor/nroPontos[i] #the mean inside each division
+                for k in range(0,nroPontos[i]): # the same as the last for, but this time it calculates the standard deviation
                     l = k + j*nroPontos[i]
-                    desvioAux += self.btc[l]-mediaValor #vai somando todos os desvios
-                    desvios.append(self.btc[l]-mediaValor)
-
+                    desvioAux += self.btc[l]-mediaValor # 3. Calculate the cumulative deviantions
+                    deviationSquare += math.pow(self.btc[l]-mediaValor, 2) # Sum of squared deviantions, to calculate the standard deviantion
+                    desvios.append(self.btc[l]-mediaValor) #I did a list of of all mean deviations so I can call "max" and "min" functions afte
                 rt = max(desvios)-min(desvios)
-                desvioPadrao = math.sqrt(math.pow(desvioAux, 2)/nroPontos[i])
-
-            rs += (rt/desvioPadrao)/math.pow(2,i)
+                standardDeviation = math.sqrt(deviationSquare/nroPontos[i])
+                rs += (rt/standardDeviation)
+            rs = rs/math.pow(2,i)
             listaRS.append(math.log10(rs))
 
         pontosLog = []
