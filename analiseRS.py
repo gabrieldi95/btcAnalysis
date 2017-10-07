@@ -39,7 +39,8 @@ class AnaliseRS:
                     l = k + j*nroPontos[i]
                     desvioAux += self.btc[l]-mediaValor # 3. Calculate the cumulative deviantions
                     deviationSquare += math.pow(self.btc[l]-mediaValor, 2) # Sum of squared deviantions, to calculate the standard deviantion
-                    desvios.append(self.btc[l]-mediaValor) #I did a list of of all mean deviations so I can call "max" and "min" functions afte
+                #In this branch the list contains the min and max of all divisions, not the deviantions inside of each one
+                desvios.append(desvioAux) #I did a list of of all mean deviations so I can call "max" and "min" functions afte
                 rt = max(desvios)-min(desvios)
                 standardDeviation = math.sqrt(deviationSquare/nroPontos[i])
                 rs += (rt/standardDeviation)
