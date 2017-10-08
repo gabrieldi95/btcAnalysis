@@ -1,26 +1,30 @@
 #!/home/gabriel/anaconda3/bin/python3
 
+import math
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 from sklearn.linear_model import LinearRegression
-from sklearn import datasets, linear_model
-from sklearn.metrics import mean_squared_error, r2_score
-import math
 
+"""
+Class that contains all functions
+"""
 class AnaliseRS:
 
-    #Primeiro pegar a média de pontos em cada intervalo
-    def mediaDePontos(self):
-        mediaPontos = []
+    """
+    This fuction gets the mean of the frequency for each size division.
+    For example: When divided by 2, 183.
+    When divided by 4, 91, and so on.
+    """
+    def FrequencyMean(self):
+        freq_mean = []
         for x in range(0,6):
-            mediaPontos.append( int(len(self.btc)/math.pow(2, x)) )
-        return mediaPontos
+            freq_mean.append( int(len(self.btc)/math.pow(2, x)) )
+        return freq_mean
 
     def analise(self):
         self.btc = open("btcHistory.txt", "r").read().split(" ")
         self.btc = list(map(float, self.btc))
-        nroPontos = self.mediaDePontos()
+        nroPontos = self.FrequencyMean()
         listaRS = [] #irá conter p rs de cada divisão
         mediaValor = 0
         for i in range(0,6): #This for runs through all possibel divisions of the values (divide in 1, in 2, in 4, in 8...)
