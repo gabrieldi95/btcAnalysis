@@ -68,9 +68,5 @@ class AnaliseRS:
         plt.title(slope)
         plt.show()
 
-
-
-
-
 if __name__ == "__main__":
     AnaliseRS().analise()
