@@ -24,7 +24,7 @@ class AnaliseRS:
         listaRS = [] #irá conter p rs de cada divisão
         mediaValor = 0
         for i in range(0,6): #This for runs through all possibel divisions of the values (divide in 1, in 2, in 4, in 8...)
-            for j in range(0, int(math.pow(2,i)) ): #This one iterates over all n divisions
+            for j in range(1, int(math.pow(2,i)) ): #This one iterates over all n divisions
                 rs = 0
                 mediaValor = 0
                 desvioAux = 0
@@ -44,7 +44,7 @@ class AnaliseRS:
                 rt = max(desvios)-min(desvios)
                 standardDeviation = math.sqrt(deviationSquare/nroPontos[i])
                 rs += (rt/standardDeviation)
-            rs = rs/math.pow(2,i)
+            rs = rs/2*i
             listaRS.append(math.log10(rs))
 
         pontosLog = []
