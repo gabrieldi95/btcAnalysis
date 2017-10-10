@@ -61,6 +61,11 @@ class AnaliseRS:
 
         plt.scatter(x, listaRS, color='r')
         plt.plot(x, model.predict(x),color='k')
+        slope, intercept = np.polyfit(pontosLog, listaRS, 1)
+        plt.axis([-1.5, 3, -1.5, 3])
+        plt.ylabel("Log R/S")
+        plt.xlabel("Log size")
+        plt.title(slope)
         plt.show()
 
 
